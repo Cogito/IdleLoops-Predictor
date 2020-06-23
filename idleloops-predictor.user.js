@@ -749,6 +749,8 @@ const Koviko = {
       // Initialize the display element for the total amount of mana used
       container && (this.totalDisplay.innerHTML = '');
 
+      for (const [_, prediction] of Object.entries(this.predictions)) { prediction.loopsCompleted = 0; }
+
       // Run through the action list and update the view for each action
       actions.forEach((listedAction, i) => {
         /** @var {Koviko.Prediction} */
@@ -829,6 +831,7 @@ const Koviko = {
                 prediction.loop.effect.end(state.resources, state.skills);
               }
             }
+            prediction.loopsCompleted += 1;
           }
 
           if(prediction.name in state.progress)
